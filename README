@@ -1,4 +1,4 @@
-es the $.get() syntax, but maintains a response cache.
+xget uses the $.get() syntax, but maintains a response cache.
 Subsequent uses during a single page session won't generate another
 HTTP request. Sweet.
 
