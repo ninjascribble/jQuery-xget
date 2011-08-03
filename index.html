@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>xget demo</title>
+<style type="text/css">
+#controls {
+  background: #fff;
+  border: 1px solid #ccc;
+  left: 5px;
+  padding: 5px;
+  position: absolute;
+  top: 5px;
+}
+</style>  
+</head>
+<body>
+
+<div id="controls">
+  <div class="console"></div>
+  <button type="button" class="holmes">Sherlock Holmes</button>
+</div>
+
+<div id="response"></div>
+  
+  
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="jQuery.xget.js"></script>
+<script type="text/javascript">
+
+var request = './big.txt';
+var start = 0;
+var finish = 0;
+
+$('.holmes').bind('click', function() {
+  start = new Date().getTime();
+  $.xget(request, callback, 'text');
+});
+
+function callback(a,b,c) {
+  finish = new Date().getTime();
+  $('#controls .console').text(finish - start + ' ms');
+  $('#response').text(a);
+}
+
+</script>
+</body>
+</html>

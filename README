@@ -1,0 +1,9 @@
+es the $.get() syntax, but maintains a response cache.
+Subsequent uses during a single page session won't generate another
+HTTP request. Sweet.
+
+Unlike $.get(), the callback is executed regardless of
+whether or not the request was successful. The callback is *always*
+executed within the document.window scope.
+
+Usage: $.xget(url, [data,] [callback,] [dataType])
