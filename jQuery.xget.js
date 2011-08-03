@@ -70,6 +70,43 @@
 	};
 	
 	/**
+	 * Add the responses for a number of requests to the xget cache.
+	 * Requests are made in serial. If a request fails, xget will simply
+	 * move on, and not add that key to the cache.
+	 *
+	 * The <code>urls</code> argument can contain any combination of elements
+	 * in either of the following formats:
+	 * <ul>
+	 *	<li>['http://some.url.com']
+	 *	<li>[{ url: 'http://some.url.com', data: { key: 'value' }, dataType: 'html' }]
+	 * </ul>
+	 *
+	 * Usage $.xget.precache(urls)
+	 *
+	 * @param {Array} url
+	 * 		A list of urls to send requests to.
+	 */
+	$.xget.precache = function(urls)
+	{
+		if (!urls instanceof Array || !urls[0]) {
+			return false;
+		}
+
+		var urls = urls;
+		var request = urls.shift();
+		var callback = function() {
+			$.xget.precache(urls);
+		};
+
+		if (request.hasOwnProperty('url')) {
+			$.xget(request['url'], request['data'], callback, request['dataType']);
+		}
+		else {
+			$.xget(request, callback);
+		}
+	};
+	
+	/**
 	 * Delete one or all of the cache entries.
 	 * 
 	 * Usage: $.xget.invalidate([url,] [data])
